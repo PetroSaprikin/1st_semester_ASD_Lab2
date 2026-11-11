@@ -43,6 +43,13 @@ int size_check(int size, int real_size)
     return size;
 }
 
+void lst_print(float *A, int lst_size)
+{
+    for (int i = 0; i < lst_size; i++)
+        printf("[%.2f]", A[i]);
+    printf("\n");
+}
+
 int main()
 {
     while (1)
@@ -60,6 +67,8 @@ int main()
         int elements_to_remove = integer_number_check();
         elements_to_remove = size_check(elements_to_remove, lst_size);
         A = realloc(A, (lst_size - elements_to_remove) * sizeof(float));
+        lst_size -= elements_to_remove;
+        lst_print(A, lst_size);
         free(A);
     }
 }
