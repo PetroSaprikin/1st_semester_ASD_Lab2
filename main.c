@@ -57,7 +57,9 @@ int main()
             A[i] = float_number_check();
         }
         printf("Enter the number of elements to remove (0 - %d): ", lst_size);
-        const int elements_to_remove = integer_number_check();
+        int elements_to_remove = integer_number_check();
+        elements_to_remove = size_check(elements_to_remove, lst_size);
+        A = realloc(A, (lst_size - elements_to_remove) * sizeof(float));
         free(A);
     }
 }
