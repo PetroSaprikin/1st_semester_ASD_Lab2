@@ -63,6 +63,15 @@ int size_check(int size, int real_size)
     return size;
 }
 
+void lst_fill(struct lst *A)
+{
+    for (int i = 0; i < A->size; i++)
+    {
+        printf("Enter the value of element %d: ", i + 1);
+        A->array[i] = float_number_check();
+    }
+}
+
 void lst_print(float *A, int lst_size)
 {
     for (int i = 0; i < lst_size; i++)
@@ -78,12 +87,9 @@ int main()
     {
         printf("Enter the size of the list (between 0 and 15): ");
         int lst_size = integer_number_check();
+        lst_size = size_check(lst_size, 15);
         struct lst A = lst_init(lst_size);
-        for (int i = 0; i < lst_size; i++)
-        {
-            printf("Enter the value of element %d: ", i + 1);
-            A.array[i] = float_number_check();
-        }
+        lst_fill(&A);
         printf("Enter the number of elements to remove (0 - %d): ", lst_size);
         int elements_to_remove = integer_number_check();
         elements_to_remove = size_check(elements_to_remove, lst_size);
