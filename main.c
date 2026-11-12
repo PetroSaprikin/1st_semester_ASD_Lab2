@@ -15,9 +15,10 @@ struct lst lst_init(int size)
     return A;
 }
 
-struct lst lst_remove(struct lst *A, int elements_to_remove)
+void lst_remove(struct lst *A, int elements_to_remove)
 {
-    A->array = realloc(A->array, (A->size - elements_to_remove) * sizeof(float));
+    A->size -= elements_to_remove;
+    A->array = realloc(A->array, A->size * sizeof(float));
 }
 
 int integer_number_check()
@@ -90,7 +91,7 @@ int main()
         printf("Enter the number of elements to remove (0 - %d): ", A.size);
         int elements_to_remove = integer_number_check();
         elements_to_remove = size_check(elements_to_remove, A.size);
-        A.size -= elements_to_remove;
+        lst_remove(&A, elements_to_remove);
         printf("New list: ");
         lst_print(A.array, A.size);
         printf("Enter value. Elements less than or equal to this value will be printed: ");
