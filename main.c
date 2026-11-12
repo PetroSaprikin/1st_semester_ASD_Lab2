@@ -79,7 +79,23 @@ void lst_print(float *A, int lst_size)
     printf("\n");
 }
 
-
+void lst_print_elements_less_than_value(struct lst *A, float element)
+{
+    char count = 0;
+    for (int i = 0; i < A->size; i++)
+    {
+        if (A->array[i] < element)
+        {
+            count++;
+            printf("[%.2f]", A->array[i]);
+        }
+    }
+    if (count == 0)
+    {
+        printf("EMPTY LIST\n");
+    }
+    printf("\n");
+}
 
 int main()
 {
@@ -89,13 +105,13 @@ int main()
         struct lst A = lst_init(size_check(integer_number_check(), 15));
         lst_fill(&A);
         printf("Enter the number of elements to remove (0 - %d): ", A.size);
-        int elements_to_remove = integer_number_check();
-        elements_to_remove = size_check(elements_to_remove, A.size);
-        lst_remove(&A, elements_to_remove);
+        lst_remove(&A, size_check(integer_number_check(), A.size));
         printf("New list: ");
         lst_print(A.array, A.size);
-        printf("Enter value. Elements less than or equal to this value will be printed: ");
+        printf("Enter value. Elements less than this value will be printed: ");
         float element = float_number_check();
+        printf("List with elements that less than this value: ");
+        lst_print_elements_less_than_value(&A, element);
         free(A.array);
     }
 }
