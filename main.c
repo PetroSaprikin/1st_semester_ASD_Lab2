@@ -18,7 +18,6 @@ struct lst lst_init(int size)
 struct lst lst_remove(struct lst *A, int elements_to_remove)
 {
     A->array = realloc(A->array, (A->size - elements_to_remove) * sizeof(float));
-    return *A;
 }
 
 int integer_number_check()
@@ -86,16 +85,14 @@ int main()
     while (1)
     {
         printf("Enter the size of the list (between 0 and 15): ");
-        int lst_size = integer_number_check();
-        lst_size = size_check(lst_size, 15);
-        struct lst A = lst_init(lst_size);
+        struct lst A = lst_init(size_check(integer_number_check(), 15));
         lst_fill(&A);
-        printf("Enter the number of elements to remove (0 - %d): ", lst_size);
+        printf("Enter the number of elements to remove (0 - %d): ", A.size);
         int elements_to_remove = integer_number_check();
-        elements_to_remove = size_check(elements_to_remove, lst_size);
-        lst_size -= elements_to_remove;
+        elements_to_remove = size_check(elements_to_remove, A.size);
+        A.size -= elements_to_remove;
         printf("New list: ");
-        lst_print(A.array, lst_size);
+        lst_print(A.array, A.size);
         printf("Enter value. Elements less than or equal to this value will be printed: ");
         float element = float_number_check();
         free(A.array);
