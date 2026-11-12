@@ -1,6 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+struct lst
+{
+    float * array;
+    int size;
+};
+
+struct lst lst_init(int size)
+{
+    struct lst A;
+    A.size = size;
+    A.array = malloc(size * sizeof(float));
+    return A;
+}
+
+struct lst lst_remove(struct lst *A, int elements_to_remove)
+{
+    A->array = realloc(A->array, (A->size - elements_to_remove) * sizeof(float));
+    return *A;
+}
+
 int integer_number_check()
 {
     int number = 0;
@@ -50,25 +70,28 @@ void lst_print(float *A, int lst_size)
     printf("\n");
 }
 
+
+
 int main()
 {
     while (1)
     {
         printf("Enter the size of the list (between 0 and 15): ");
         int lst_size = integer_number_check();
-        lst_size = size_check(lst_size, 15);
-        float *A = malloc(lst_size * sizeof(float));
+        struct lst A = lst_init(lst_size);
         for (int i = 0; i < lst_size; i++)
         {
             printf("Enter the value of element %d: ", i + 1);
-            A[i] = float_number_check();
+            A.array[i] = float_number_check();
         }
         printf("Enter the number of elements to remove (0 - %d): ", lst_size);
         int elements_to_remove = integer_number_check();
         elements_to_remove = size_check(elements_to_remove, lst_size);
-        A = realloc(A, (lst_size - elements_to_remove) * sizeof(float));
         lst_size -= elements_to_remove;
-        lst_print(A, lst_size);
-        free(A);
+        printf("New list: ");
+        lst_print(A.array, lst_size);
+        printf("Enter value. Elements less than or equal to this value will be printed: ");
+        float element = float_number_check();
+        free(A.array);
     }
 }
