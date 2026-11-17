@@ -21,6 +21,11 @@ void lst_remove(struct lst *A, int elements_to_remove)
     A->array = realloc(A->array, A->size * sizeof(float));
 }
 
+void lst_free(struct lst *A)
+{
+    free(A->array);
+}
+
 char lst_is_empty(struct lst *A)
 {
     if (A->size == 0)
@@ -153,6 +158,6 @@ int main()
         printf("List with elements that less than this value: ");
         lst_print_elements_less_than_value(&A, element);
         lst_print_bigger_than_average_value(&A);
-        free(A.array);
+        lst_free(&A);
     }
 }
