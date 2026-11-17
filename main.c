@@ -79,7 +79,7 @@ void lst_print(float *A, int lst_size)
     printf("\n");
 }
 
-void lst_print_elements_less_than_value(struct lst *A, float element)
+void lst_print_elements_less_than_value(const struct lst *A, const float element)
 {
     char count = 0;
     for (int i = 0; i < A->size; i++)
@@ -97,6 +97,32 @@ void lst_print_elements_less_than_value(struct lst *A, float element)
     printf("\n");
 }
 
+void lst_print_bigger_than_average_value(const struct lst *A)
+{
+    float sum = 0;
+
+    for (int i = 0; i < A->size; i++)
+    {
+        sum += A->array[i];
+    }
+
+    float average = sum / (float)A->size;
+
+    printf("Average value: [%.2f]\n", average);
+    printf("Elements bigger than average value: " );
+
+    for (int i = 0; i < A->size; i++)
+    {
+        if (A->array[i] > average)
+        {
+            printf("[%.2f]", A->array[i]);
+        }
+    }
+
+    printf("\n");
+
+}
+
 int main()
 {
     while (1)
@@ -112,6 +138,7 @@ int main()
         float element = float_number_check();
         printf("List with elements that less than this value: ");
         lst_print_elements_less_than_value(&A, element);
+        lst_print_bigger_than_average_value(&A);
         free(A.array);
     }
 }
