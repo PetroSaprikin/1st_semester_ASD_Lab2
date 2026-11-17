@@ -21,6 +21,15 @@ void lst_remove(struct lst *A, int elements_to_remove)
     A->array = realloc(A->array, A->size * sizeof(float));
 }
 
+char lst_is_empty(struct lst *A)
+{
+    if (A->size == 0)
+    {
+        return 1;
+    }
+    return 0;
+}
+
 int integer_number_check()
 {
     int number = 0;
@@ -132,6 +141,11 @@ int main()
         lst_fill(&A);
         printf("Enter the number of elements to remove (0 - %d): ", A.size);
         lst_remove(&A, size_check(integer_number_check(), A.size));
+        if (lst_is_empty(&A))
+        {
+            printf("Lst is empty\n");
+            continue;
+        }
         printf("New list: ");
         lst_print(A.array, A.size);
         printf("Enter value. Elements less than this value will be printed: ");
